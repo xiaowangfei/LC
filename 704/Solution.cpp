@@ -38,3 +38,73 @@ int search(vector<int>& nums, int target) {
     return -1;
         
 }
+
+//First position of target
+//Can't just return when target is found
+
+int binarySearch(vector<int> &nums, int target) {
+    // write your code here
+    int start = 0;
+    int end = nums.size() - 1;
+    while(start <= end){
+        int mid = start + (end - start)/2;
+        if(nums[mid] > target){
+            end = mid -1;
+        }
+        else if(nums[mid] < target){
+            start = mid + 1;
+        }
+        else if(mid > 0 && nums[mid - 1] == target){    //Check previous element. Need to make sure always progress, no dead loop 
+            end = mid - 1;
+        }
+        else{
+            return mid;                                 //return
+        }
+    }
+    return -1;
+}
+
+// Leave two elements
+int binarySearch(vector<int> &nums, int target) {
+    // write your code here
+    int start = 0;
+    int end = nums.size() - 1;
+    while(start < end){
+        int mid = start + (end - start)/2;
+        if(nums[mid] >= target){
+            end = mid;
+        }
+        else{
+            start = mid + 1;
+        }
+    }
+    if(nums[start] == target) return start;
+    return -1;
+}
+
+//Find last
+int binarySearch(vector<int> &nums, int target) {
+    int start = 0;
+    int end = nums.size() - 1;
+    while(start <= end){ 
+        int mid = start + (end - start)/2;
+        if(nums[mid] > target){
+            end = mid - 1;
+        }
+        else if(nums[mid] < target){
+            start = mid + 1;
+        }
+        else if(mid < nums.size() -1 && nums[mid + 1] == target){
+            start = mid + 1;
+        }
+        else{
+            return mid;
+        }
+    }
+    return -1;
+}
+
+//Summary: To make sure no dead loop(start and end can change when while condition are met):
+//1) start <= end   : start = mid + 1 && end = mid -1   No tailing check
+//2) start < end    : start = mid + 1 && end = mid      Check nums[start]
+//3) start < end - 1: start = mid && end = mid          Check nums[start] && nums[end]
