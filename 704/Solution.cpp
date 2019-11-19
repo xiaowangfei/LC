@@ -124,4 +124,5 @@ int LastPosition(vector<int> &nums, int target) {
 //1) start <= end   : start = mid + 1 && end = mid -1   No tailing check
 //2) start < end    : start = mid + 1 && end = mid      Check nums[start]
 //3) start < end - 1: start = mid && end = mid          Check nums[start] && nums[end]
+//4) For first, end = mid. For last: start = mid. Search for any: start/end = mid
 //4) When mid == target, don't move start/end to mid +/- 1. Check can be done outside while loop
