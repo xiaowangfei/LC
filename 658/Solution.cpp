@@ -33,3 +33,20 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x) {
     //left is 1 element beyond starting point
     return vector<int>(arr.begin() + left + 1, arr.begin() +right);        
 }
+
+vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+    //binary search for result's starting index
+    int start = 0;
+    int end = arr.size() - k;  //Right most possible start index
+    while(start < end){
+        int mid = start + (end - start)/2;
+        if(x - arr[mid] > arr[mid + k] - x){//Check which side of result range has closer difference with target
+            start = mid + 1;
+        }
+        else{
+            end = mid;
+        }
+    }
+
+    return vector<int>(arr.begin() + start , arr.begin() + start + k);        
+}
