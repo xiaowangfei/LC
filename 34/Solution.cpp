@@ -81,3 +81,7 @@ vector<int> searchRange(vector<int> &nums, int target) {
     return result;
 }
 
+//1) First vs Last: Think of it as to find a bar with conditon: left < target && right >= target vs left <= target && right > target, which yields same solution with different meaning
+//2) For start < end, left = mid + 1 means left cross bar, right = mid means right stays within right section.
+//3) For start <= and, left/right = mid +/- 1, both would cross bar. Start + 1 < end, left/right = mid, no one would cross.
+//4) Which side has mid +/- 1 would cross bar, without +/- 1, follows conditon
