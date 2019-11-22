@@ -17,3 +17,19 @@ int findMin(vector<int>& nums) {
     }
     return nums[start];        
 }
+//Find first one that is <= nums[last]
+int findMin(vector<int>& nums) {
+    if (nums.empty()) return -1;
+    int start = 0;
+    int end = nums.size() - 1;
+    while(start < end){             
+        int mid = start + (end - start)/2;
+        if(nums[mid] <= nums[nums.size() - 1]){   
+            end = mid;
+        }
+        else{
+            start = mid + 1;
+        }
+    }
+    return nums[start];        
+}
