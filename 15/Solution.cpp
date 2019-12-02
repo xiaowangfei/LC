@@ -91,3 +91,43 @@ vector<vector<int>> threeSum(vector<int>& nums) {
     }
     return result;  
 }
+//Practice multiple set
+vector<vector<int>> threeSum(vector<int> &nums) {
+    // write your code here
+    vector<vector<int>> result;
+    if(nums.size() < 3){
+        return result;
+    }
+    sort(nums.begin(), nums.end());
+    for(int i = 0; i < nums.size(); i++){
+        if(i != 0 && nums[i] == nums[i - 1]){  //Remove duplicate is needed even for Hash method
+            continue;
+        }
+        set<int> S;;                                    //Set is sufficient
+        for(int j = i + 1; j < nums.size(); j++){
+            if(nums[j] * 2 + nums[i] == 0){             //Special case
+                if(S.find(nums[j]) != S.end()){
+                    vector<int> temp;
+                    temp.push_back(nums[i]);
+                    temp.push_back(nums[j]);
+                    temp.push_back(nums[j]);
+                    result.push_back(temp);
+                    while(j < nums.size() -1 && nums[j + 1] == nums[j]) j++;
+                }
+            }
+            else if( j != i + 1 && nums[j] == nums[j - 1]){ //Check duplicate
+                continue;
+            }
+            else if(S.find(0 - nums[i] - nums[j]) != S.end()){
+                vector<int> temp;
+                temp.push_back(nums[i]);
+                temp.push_back(0 - nums[i] - nums[j]);      //Mind order
+                temp.push_back(nums[j]);
+                result.push_back(temp);          
+            }
+            S.insert(nums[j]);
+        }
+    }
+    return result;  
+}
+
