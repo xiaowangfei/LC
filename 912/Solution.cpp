@@ -46,3 +46,38 @@ int partition(vector<int>& nums, int start, int end){
     return idx;
 }
 
+//Merge sort
+vector<int> sortArray(vector<int>& nums) {
+    vector<int> temp(nums);                         //Extra O(n) space for merge
+    mergeSort(nums, temp, 0, nums.size() - 1);
+    return nums;
+}
+void mergeSort(vector<int>& nums, vector<int>& temp, int start, int end){
+    if(start < end){
+        int mid = start + (end - start)/2;         //Divide by mid & mid + 1 to avoid deadloop
+        mergeSort(nums, temp, start, mid);
+        mergeSort(nums, temp, mid + 1, end);
+        merge(nums, temp, start, mid, end);
+    }
+}
+    
+void merge(vector<int>& nums, vector<int>& temp, int start, int mid, int end){
+    int idx1 = start;
+    int idx2 = mid + 1;
+    for(int i = start; i <= end; i++){
+        if(idx1 <= mid && idx2 <= end){
+            temp[i] = nums[idx1] < nums[idx2] ? nums[idx1++] : nums[idx2++];
+        }
+        else if(idx1 <= mid){
+            temp[i] = nums[idx1++];
+        }
+        else if(idx2 <= end){
+            temp[i] = nums[idx2++];
+        }
+    }
+      
+    for(int i = start; i <= end; i++){     //Copy back data
+        nums[i] = temp[i];
+    }
+}
+
