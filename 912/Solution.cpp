@@ -26,17 +26,21 @@ void quickSort(vector<int>& nums, int start, int end){
     }
 }
 
+//Use last item as pivot and place it in the right place
 int partition(vector<int>& nums, int start, int end){
     int idx = start;
     int pivot = nums[end];
     for(int i = start; i < end; i++){
-        if(nums[i] < pivot){
+        if(nums[i] <= pivot){
             int temp  = nums[idx];
             nums[idx] = nums[i];
             nums[i]   = temp;
             idx++;
         }
     }
+    //The final three lines of PARTITION finish up by swapping the pivot element with
+    //the leftmost element greater than x, thereby moving the pivot into its correct place
+    //in the partitioned array, and then returning the pivot’s new index.  --Introduction to Algorithm
     nums[end] = nums[idx];
     nums[idx] = pivot;
     return idx;
