@@ -45,6 +45,60 @@ int partition(vector<int>& nums, int start, int end){
     nums[idx] = pivot;
     return idx;
 }
+//Use double pointer
+int partition(vector<int>& nums, int start, int end){
+    if(start >= end) return start;
+    int left = start;
+    int right =end;
+    int pivot = nums[end];
+    while(left < right){
+        while(nums[right] >= pivot && left < right){
+            right--;
+        }
+        while(nums[left] <= pivot && left < right){
+            left++;
+        }
+        if(left < right){
+            int temp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = temp;
+        }
+    }
+    if(nums[right] < pivot){
+        right++;
+    }
+    nums[end] = nums[right];
+    nums[right] = pivot;
+    return right;
+}
+//Or use start as pivot
+int partition(vector<int>& nums, int start, int end){
+    if(start >= end) return start;
+    int left = start;
+    int right =end;
+    int pivot = nums[start];
+    while(left < right){
+        while(nums[left] <= pivot && left < right){
+            left++;
+        }
+        while(nums[right] >= pivot && left < right){
+            right--;
+        }
+        if(left < right){
+            int temp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = temp;
+        }
+    }
+    if(nums[right] > pivot){
+        right--;
+    }
+    nums[start] = nums[right];
+    nums[right] = pivot;
+    return right;
+}
+//Double pointer note:
+
 
 //Merge sort
 vector<int> sortArray(vector<int>& nums) {
