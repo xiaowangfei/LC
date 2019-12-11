@@ -52,7 +52,7 @@ int partition(vector<int>& nums, int start, int end){
     int right =end;
     int pivot = nums[end];
     while(left < right){
-        while(nums[right] >= pivot && left < right){
+        while(nums[right] >= pivot && left < right){ //right move first
             right--;
         }
         while(nums[left] <= pivot && left < right){
@@ -78,7 +78,7 @@ int partition(vector<int>& nums, int start, int end){
     int right =end;
     int pivot = nums[start];
     while(left < right){
-        while(nums[left] <= pivot && left < right){
+        while(nums[left] <= pivot && left < right){ //left move first
             left++;
         }
         while(nums[right] >= pivot && left < right){
@@ -98,6 +98,19 @@ int partition(vector<int>& nums, int start, int end){
     return right;
 }
 //Double pointer note:
+//0.The point is to let left/right pointer cross condition
+//1.left++ pointer and right-- pointer, whoever moves first will cross boundary(left condition & right condition(usually NOT left))
+//2.Even if left != right and they swap value, eventually left/right who moves first will cross bounday
+//3.When left == right(ending condition), two special cases to check: 
+//a).pointer never move(consider as CROSS)
+//b).pointer moved all the way to the end(DID NOT CROSS)
+//eg. left move first & ending with left conditon: left moves all the way to the end. left first & right condition: left cross boundary
+//4.OOOXXX case: To find first XXX, let left move first to cross from OOO to XXX. Because when left cross(out of while loop for left),
+//the condition becomes XXX, and it's looking for first XXX. This is consistent, otherwise consider special case listed as 3.a eg.
+//Find first XXX  left first(!while(O))                         right first(!while(X))
+//all OOOOOO      3.b, all way to end.expected special case     3.a never moved, confused with normal OOOXXX conditon, and return ++right
+//all XXXXXX      3.a, never moved. already find answer         3.b all the way to end, which is actually normal condition
+//Similarly, to find last OOO, move right first from XXX to cross OOO. 
 
 
 //Merge sort
