@@ -55,3 +55,42 @@ int helper(vector<int>& nums, int start, int end, int k){
     }
     return result;
 } 
+//Iterative reverse two pointers
+int helper(vector<int>& nums, int start, int end, int k){
+    int result;
+    while(true){    
+        int left = start; 
+        int right = end;
+        while(left < right){
+            while(nums[right] <= nums[end] && left < right){
+                right--;
+            }
+            while(nums[left] > nums[end] && left < right){
+                left++;
+            }
+            if(left < right){
+                int temp = nums[left];
+                nums[left] = nums[right];
+                nums[right] = temp;
+            }
+        }
+        if(nums[left] > nums[end]){//Dont' use >=. Be careful with only 1 element conditon for reverse two pointers!
+            left++;
+        }
+        int temp = nums[end];
+        nums[end] = nums[left];
+        nums[left] = temp;
+
+        if(left + 1 == k){
+            result = nums[left]; 
+            break;
+        }
+        else if(left + 1 > k){
+            end = left - 1;
+        }
+        else{
+            start = left + 1;
+        }
+    }
+    return result;
+}
