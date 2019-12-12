@@ -111,6 +111,7 @@ int partition(vector<int>& nums, int start, int end){
 //all OOOOOO      3.b, all way to end.expected special case     3.a never moved, confused with normal OOOXXX conditon, and return ++right
 //all XXXXXX      3.a, never moved. already find answer         3.b all the way to end, which is actually normal condition
 //Similarly, to find last OOO, move right first from XXX to cross OOO. 
+//5.Be careful is there is only ONE element!
 
 
 //Merge sort
