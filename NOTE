@@ -1,0 +1,43 @@
+//Insertion sort
+void sort(vector<int> &A) {
+    for(int j = 0; j < A.size(); j++){
+        int i = j - 1;
+        int key = A[j];
+        while(i >= 0 && A[i] > key){
+            A[i + 1] = A[i];
+            i--;
+        }
+        A[i + 1] = key;
+    }
+}
+     
+//quick sort    
+    int partition (vector<int> &A, int start, int end) {
+        int i = start - 1;
+        for(int j = start; j <= end - 1; j++) {
+            if(A[j] <= A[end]) {
+                i++;
+                int temp = A[i];
+                A[i] = A[j];
+                A[j] = temp;
+            }
+        }
+        i++;
+        int temp = A[i];
+        A[i] = A[end];
+        A[end] = temp;
+        return i;
+        
+    }
+    void quicksort(vector<int> &A, int start, int end) {
+        if(start >= end) {
+            return ;
+        }
+        int mid = partition(A, start, end);
+        quicksort(A, start, mid - 1);
+        quicksort(A, mid, end);
+    }
+    void sortIntegers2(vector<int> &A) {
+        // write your code here
+        quicksort(A, 0, A.size()-1);
+    }
