@@ -10,7 +10,7 @@ void sort(vector<int> &A) {
         A[i + 1] = key;
     }
 }
-    
+     
 //quick sort    
     int partition (vector<int> &A, int start, int end) {
         int i = start - 1;
