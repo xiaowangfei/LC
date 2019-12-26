@@ -16,3 +16,24 @@ vector<int> preorderTraversal(TreeNode* root) {
     }
     return ans;       
 }
+
+//Similar to In-order traversal
+vector<int> preorderTraversal(TreeNode* root) {
+    vector<int> ans;
+    TreeNode* ptr = root;
+    stack<TreeNode*> S;
+    while(ptr != NULL || !S.empty()){
+        if(ptr != NULL){
+            ans.push_back(ptr -> val);
+            S.push(ptr);
+            ptr = ptr -> left;
+        }
+        else{
+            TreeNode* top = S.top();
+            S.pop();
+            ptr = top -> right;
+        }
+    }
+    return ans;
+}
+
