@@ -25,7 +25,8 @@ vector<int> preorderTraversal(TreeNode* root) {
     while(ptr != NULL || !S.empty()){
         if(ptr != NULL){
             ans.push_back(ptr -> val);
-            S.push(ptr);
+            if(ptr-> right)//This line is optional
+                S.push(ptr);
             ptr = ptr -> left;
         }
         else{
