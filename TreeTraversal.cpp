@@ -18,8 +18,6 @@ vector<int> preorderTraversal(TreeNode* root) {
     return ans;       
 }
 
-
-
 //In-order traversal
 vector<int> inorderTraversal(TreeNode* root) {
     vector<int> ans;
@@ -30,19 +28,22 @@ vector<int> inorderTraversal(TreeNode* root) {
     stack<TreeNode*> S;
     while(!S.empty() || ptr != NULL){
         if(ptr != NULL){
+            //a.Every time it push to stack, ptr to the left child.
             S.push(ptr);
             ptr = ptr -> left;
         }
         else{
-            //Next node upward
+            //a&b guarantees next node to be the frist left upward, which is the in-order traversal order
             TreeNode* top = S.top();
             ans.push_back(top -> val);
-            S.pop();//Pop guarantees next to be the first left upward 
+            S.pop();//b.pop after each visit 
             //left upward always immediately followed by right downward
             ptr = top -> right; 
         }
     }
     return ans;   
 }
+
+
 
 
