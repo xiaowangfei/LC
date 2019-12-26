@@ -25,6 +25,7 @@ vector<int> inorderTraversal(TreeNode* root) {
     vector<int> ans;
     //ptr: left most NULL child or right NULL child, which means it should go upward in the tree(next node).i.g. left upward and right upward
     //Next node is always frist left upward(either immediate or following several right upward, corresponding to left most NULL or right NULL, respectively)
+    //ptr essentially keeps predecessor of current stack!
     TreeNode* ptr = root;
     stack<TreeNode*> S;
     while(!S.empty() || ptr != NULL){
