@@ -12,8 +12,8 @@ vector<int> postorderTraversal(TreeNode* root) {
             TreeNode* top = S.top();
             //if right child is NULL, process current node and pop
             //else process right child, as long as right child is not previous, in which case it should process current node and pop
-            //In comparison, using condition if previous is left child, then go to right child would miss right child since the stack
-            // top may not be the immediate parent of previous visited, in case when top -> left == NULL.
+            //In comparison, using condition if previous is left child, then go to right child would miss right child if stack top is not
+            //the immediate parent of previous visited node, in which case stack is poped and top -> left == NULL.
             if(top -> right != previous && top -> right){
                 ptr = top -> right;
             }
