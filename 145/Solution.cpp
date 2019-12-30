@@ -54,4 +54,16 @@ vector<int> postorderTraversal(TreeNode* root) {
     return ans;
 }
 
-
+//Example of preorder switching left&right
+vector<int> postorderTraversal(TreeNode* root) {
+    vector<int> ans;
+    preorder(root, ans);
+    return ans;      
+}
+void preorder(TreeNode* root, vector<int> & ans){
+    if(root == NULL) return;
+    auto it = ans.begin();
+    ans.insert(it, root -> val);
+    preorder(root -> right, ans);
+    preorder(root -> left, ans);
+}
