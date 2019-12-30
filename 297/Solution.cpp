@@ -92,7 +92,11 @@ void dfs_de(TreeNode* root, istringstream& ss){
     }
 }
 
-// DFS Concise version. Note recursion return desired type!
+// DFS Concise version. Notes:
+// 1.recursion returns desired type
+// 2. As said previously, you can't build the tree first(creating left/right child), and then decide whether it should be NULL or set value.
+// BUT, you can try to build the tree with fuction returning TreeNode* and decide whether to return NULL or not inside function!
+
 // Encodes a tree to a single string.
 string serialize(TreeNode* root) {
     if(root == NULL) return "# ";
@@ -102,18 +106,18 @@ string serialize(TreeNode* root) {
 // Decodes your encoded data to tree.
 TreeNode* deserialize(string data) {
     istringstream ss(data);
-    return dfs_de(ss);  
+    return dfs(ss);  
 }
     
-TreeNode* dfs_de(istringstream& ss){
+TreeNode* dfs(istringstream& ss){
     string s;
     ss >> s;
     if(s == "#"){
         return NULL;
     }
     TreeNode* new_ptr = new TreeNode(stoi(s));
-    new_ptr -> left = dfs_de(ss);
-    new_ptr -> right = dfs_de(ss);
+    new_ptr -> left = dfs(ss);
+    new_ptr -> right = dfs(ss);
     return new_ptr;
 }
 
