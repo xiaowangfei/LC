@@ -120,4 +120,15 @@ TreeNode* dfs(istringstream& ss){
     new_ptr -> right = dfs(ss);
     return new_ptr;
 }
-
+// Some good practice for string:
+// 1.to_string(int n)
+// 2.stoi(string s)
+// 3.substr(int pos, int len) //len optional, otherwise return all till end
+// 4.find(string "string")// return pos of first match of entire sequence, return -1 if not found
+//
+int helper(string& data) {
+    int pos = data.find(',');
+    int val = stoi(data.substr(0,pos));
+    data = data.substr(pos+1);
+    return val;
+}
