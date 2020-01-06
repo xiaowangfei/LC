@@ -44,3 +44,21 @@ Node* cloneGraph(Node* node) {
 //Notes:
 //BFS are just to vist nodes, foreach populate all the edges. BF tree is only directed from parent to child, without cycles, compared to graph
 //Need to add node to set once discovered, not visited. Otherwise, time complexibity would be large
+
+//DFS
+Node* cloneGraph(Node* node) {
+    if(node == NULL) return node;
+    map<Node*, Node*> HashMap;
+    HashMap[node] = new Node(node -> val, vector<Node*>());
+    dfs(node, HashMap);
+    return HashMap[node];
+}
+void dfs(Node* node, map<Node*, Node*>& HashMap){
+    for(Node* nb : node -> neighbors){
+        if(HashMap.find(nb) == HashMap.end()){
+            HashMap[nb] = new Node(nb -> val, vector<Node*>());
+            dfs(nb, HashMap);
+        }
+        HashMap[node] -> neighbors.push_back(HashMap[nb]);
+    }
+}
