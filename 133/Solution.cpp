@@ -7,6 +7,7 @@ Node* cloneGraph(Node* node) {
     while(!bfs_q.empty()){
         Node* curr = bfs_q.front();
         bfs_q.pop();
+        //Here is the place where each edge is checked
         for(int i = 0; i < curr -> neighbors.size(); i++){
             if(M.find(curr -> neighbors[i]) == M.end()){
                 bfs_q.push(curr -> neighbors[i]);
@@ -40,7 +41,6 @@ Node* cloneGraph(Node* node) {
     }
     return M[node];        
 }
-//TODO creat different discover set for new graph??
 //Notes:
-//BFS are just to vist nodes, foreach populate all the edges
+//BFS are just to vist nodes, foreach populate all the edges. BF tree is only directed from parent to child, without cycles, compared to graph
 //Need to add node to set once discovered, not visited. Otherwise, time complexibity would be large
