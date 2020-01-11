@@ -27,3 +27,27 @@ bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
     }    
     return result == numCourses;
 }
+
+//DFS
+bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+    vector<vector<int>> graph(numCourses, vector<int>());
+    for(auto adj : prerequisites){
+        graph[adj[0]].push_back(adj[1]);
+    }
+    set<int> visited;
+    set<int> disc;
+    for(int i = 0; i < numCourses; i++){
+        if(!acyclic(i, graph, disc, visited)) return false;
+    }
+    return true;
+}
+bool acyclic(int node, vector<vector<int>>& graph, set<int>& disc, set<int>& visited){
+    if(disc.find(node) != disc.end() && visited.find(node) == visited.end()) return false;
+    disc.insert(node);
+    if(visited.find(node) != visited.end()) return true;
+    for(int neighbor : graph[node]){
+        if(!acyclic(neighbor, graph, disc,visited)) return false;            
+    }
+    visited.insert(node);
+    return true;
+}
