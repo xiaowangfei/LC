@@ -3,10 +3,10 @@ bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
     vector<vector<int>> graph(numCourses, vector<int>());
     vector<int> InDegree(numCourses, 0);    
     for(auto adj : prerequisites){
-        graph[adj[0]].push_back(adj[1]);
+        graph[adj[1]].push_back(adj[0]);
     }
     for(auto adj : prerequisites){
-        InDegree[adj[1]]++;
+        InDegree[adj[0]]++;
     }  
     int result = 0;
     queue<int> bfs_q;
@@ -32,7 +32,7 @@ bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
 bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
     vector<vector<int>> graph(numCourses, vector<int>());
     for(auto adj : prerequisites){
-        graph[adj[0]].push_back(adj[1]);
+        graph[adj[1]].push_back(adj[0]);
     }
     set<int> visited;
     set<int> disc;
