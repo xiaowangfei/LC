@@ -42,14 +42,14 @@ bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
     return true;
 }
 bool acyclic(int node, vector<vector<int>>& graph, set<int>& disc, set<int>& visited){
-    if(disc.find(node) != disc.end()) return false; //Or checking discovered but not visited, then no need to disc.erase(node)
     if(visited.find(node) != visited.end()) return true;
-   
-    disc.insert(node);//Note the position after visited!
+    //If DFS result has back edge(color gray, indicating the next node is already discovered(parent node) but not visited), it means a cycle.
+    //Or you can keep track of only currently discovered but not visited node, by adding disc.erase(node) at the end.
+    if(disc.find(node) != disc.end()) return false;
+    disc.insert(node);
     for(int neighbor : graph[node]){
         if(!acyclic(neighbor, graph, disc,visited)) return false;            
     }
     visited.insert(node);
-    disc.erase(node);
     return true;
 }
