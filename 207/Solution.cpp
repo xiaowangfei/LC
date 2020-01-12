@@ -42,12 +42,14 @@ bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
     return true;
 }
 bool acyclic(int node, vector<vector<int>>& graph, set<int>& disc, set<int>& visited){
-    if(disc.find(node) != disc.end() && visited.find(node) == visited.end()) return false;
-    disc.insert(node);
+    if(disc.find(node) != disc.end()) return false; //Or checking discovered but not visited, then no need to dict.erase(node)
     if(visited.find(node) != visited.end()) return true;
+   
+    disc.insert(node);//Node the position after visited!
     for(int neighbor : graph[node]){
         if(!acyclic(neighbor, graph, disc,visited)) return false;            
     }
     visited.insert(node);
+    disc.erase(node);
     return true;
 }
