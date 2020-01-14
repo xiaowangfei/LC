@@ -97,6 +97,10 @@ vector<int> postorderTraversal(TreeNode* root) {
     }
     return ans;
 }
+//NOTE:
+//All those if(ptr != NULL) {...} else {TreeNode* top =S.top()...}  can be replaced with 
+// while(ptr != NULL) {...} ***make sure conditon while(!S.empty() || ptr) still holds*** TreeNode* top = S.top()...
+
 
 //Use two stacks, reverse pre-order means right -> left -> root. By switching left and right, we get left -> right -> root == post=order
 vector<int> postorderTraversal(TreeNode* root) {
@@ -123,10 +127,6 @@ vector<int> postorderTraversal(TreeNode* root) {
     }
     return ans;
 }
-
-
-
-
 
 //Morris pre-order
 public List<Integer> preorderTraversal(TreeNode root) {
