@@ -18,6 +18,25 @@ void helper(TreeNode* root, string path, vector<string>& ans){
         helper(root -> right, path, ans);
     }
 }
+
+//Divide and Conquer
+vector<string> binaryTreePaths(TreeNode* root) {
+    if(root == NULL){
+        return vector<string>();
+    }
+    if(root -> left == NULL && root -> right == NULL){
+        return vector<string>(1,to_string(root -> val));
+    }
+    vector<string> ans;
+    for(string s : binaryTreePaths(root -> left)){
+        ans.push_back(to_string(root -> val) + "->" + s);
+    }
+    for(string s : binaryTreePaths(root -> right)){
+        ans.push_back(to_string(root -> val) + "->" + s);
+    }
+    return ans;        
+}
+
 //BFS1
 vector<string> binaryTreePaths(TreeNode* root) {
     vector<string> ans;
