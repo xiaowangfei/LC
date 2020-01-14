@@ -91,3 +91,33 @@ vector<string> binaryTreePaths(TreeNode* root) {
     }
     return ans;
 }
+
+//Preorder
+vector<string> binaryTreePaths(TreeNode* root) {
+    if(root == NULL){
+        return vector<string>();
+    } 
+    vector<string> ans;
+    stack<TreeNode*> s;
+    stack<string> path;
+    s.push(root);
+    path.push(to_string(root -> val));
+    while(!s.empty()){
+        TreeNode* root = s.top();
+        string str_root = path.top();
+        s.pop();
+        path.pop();
+        if(root -> left == NULL && root -> right == NULL){
+            ans.push_back(str_root);
+        }
+        if(root -> right){
+            s.push(root -> right);
+            path.push(str_root + "->" + to_string(root -> right -> val));
+        }
+        if(root -> left){
+            s.push(root -> left);
+            path.push(str_root + "->" + to_string(root -> left -> val));
+        }
+    }
+    return ans;      
+}
