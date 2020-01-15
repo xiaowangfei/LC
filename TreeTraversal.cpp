@@ -98,9 +98,14 @@ vector<int> postorderTraversal(TreeNode* root) {
     return ans;
 }
 //NOTE:
-//All those if(ptr != NULL) {...} else {TreeNode* top =S.top()...}  can be replaced with 
-// while(ptr != NULL) {...} ***make sure conditon while(!S.empty() || ptr) still holds*** TreeNode* top = S.top()...
-
+//a. All those if(ptr != NULL) {...} else {TreeNode* top =S.top()...}  can be replaced with 
+//   while(ptr != NULL) {...} ***make sure conditon while(!S.empty() || ptr) still holds*** TreeNode* top = S.top()...
+//b. For pre-order and In-order, once stack top is accessed, stack WILL pop.(node already visited), 
+//   and ptr is free to set to top -> right, whether top -> right is NULL(ptr *KEEP* NULL) or not(visit right child).
+//c. For post-order, set ptr to top -> right ONLY if it should visit right child next.
+//   Or(!!!) after visiting right child, visit current post order node, set prev and pop.
+//   -> Ptr remains prevous value, which should be NULL, so that it will find next stack top.
+//   -> In fact, for post-order, after visiting node(after left&right child), the only direction is to go *UP*
 
 //Use two stacks, reverse pre-order means right -> left -> root. By switching left and right, we get left -> right -> root == post=order
 vector<int> postorderTraversal(TreeNode* root) {
