@@ -129,8 +129,7 @@ vector<string> binaryTreePaths(TreeNode* root) {
     stack<string> path;
     vector<string> ans;
     while(!s.empty() || ptr){
-        if(ptr){
-            s.push(ptr);
+        if(ptr){           
             if(ptr -> left == NULL && ptr -> right == NULL){
                 str += to_string(ptr -> val);
                 ans.push_back(str);
@@ -138,7 +137,10 @@ vector<string> binaryTreePaths(TreeNode* root) {
             else{
                 str += to_string(ptr -> val) + "->"; 
             }
-            path.push(str);
+            if(ptr -> right){//Optional if conditon, same as tree traversal
+                s.push(ptr);
+                path.push(str);
+            }
             ptr = ptr -> left;
         }
         else{
@@ -183,5 +185,40 @@ vector<string> binaryTreePaths(TreeNode* root) {
 }
 
 
-//Inorder
-
+//Post-order
+vector<string> binaryTreePaths(TreeNode* root) {
+    if(root == NULL) return vector<string>();
+    TreeNode* ptr = root;
+    TreeNode* prev = NULL;
+    string str = "";
+    stack<TreeNode*> s;
+    stack<string> path;
+    vector<string> ans;
+    while(!s.empty() || ptr){
+        if(ptr){
+            s.push(ptr);
+            str += to_string(ptr -> val) + "->"; 
+            path.push(str);
+            ptr = ptr -> left;
+        }
+        else{
+            TreeNode* top  = s.top();
+            str = path.top();
+            if(top -> right && prev != top -> right){            
+                ptr = top -> right; //Set ptr to top -> right to visit right child next
+            }
+            //Otherwise(when finishing current node), ptr remains NULL. So that it will visit next stack top.
+            //(post-order traversal always go UP after post-order visit)
+            else{
+                if(top -> left == NULL && top -> right == NULL){
+                    ans.push_back(str.substr(0, str.size() - 2));
+                }
+                prev = top;
+                s.pop();
+                path.pop();
+            }
+        }
+        
+    }
+    return ans;
+}
