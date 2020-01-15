@@ -121,3 +121,67 @@ vector<string> binaryTreePaths(TreeNode* root) {
     }
     return ans;      
 }
+vector<string> binaryTreePaths(TreeNode* root) {
+    if(root == NULL) return vector<string>();
+    TreeNode* ptr = root;
+    string str = "";
+    stack<TreeNode*> s;
+    stack<string> path;
+    vector<string> ans;
+    while(!s.empty() || ptr){
+        if(ptr){
+            s.push(ptr);
+            if(ptr -> left == NULL && ptr -> right == NULL){
+                str += to_string(ptr -> val);
+                ans.push_back(str);
+            }
+            else{
+                str += to_string(ptr -> val) + "->"; 
+            }
+            path.push(str);
+            ptr = ptr -> left;
+        }
+        else{
+            ptr = s.top()->right;
+            str = path.top();
+            s.pop();
+            path.pop();
+        }
+        
+    }
+    return ans;
+}
+
+//Inorder
+vector<string> binaryTreePaths(TreeNode* root) {
+    if(root == NULL) return vector<string>();
+    TreeNode* ptr = root;
+    string str = "";
+    stack<TreeNode*> s;
+    stack<string> path;
+    vector<string> ans;
+    while(!s.empty() || ptr){
+        if(ptr){
+            s.push(ptr);
+            str += to_string(ptr -> val) + "->"; 
+            path.push(str);
+            ptr = ptr -> left;
+        }
+        else{
+            ptr = s.top();
+            str = path.top();
+            if(ptr -> left == NULL && ptr -> right == NULL){
+                ans.push_back(str.substr(0, str.size() - 2));
+            }            
+            ptr = ptr -> right;
+            s.pop();
+            path.pop();
+        }
+        
+    }
+    return ans;
+}
+
+
+//Inorder
+
