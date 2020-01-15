@@ -200,7 +200,7 @@ vector<string> binaryTreePaths(TreeNode* root) {
             str += to_string(ptr -> val) + "->"; 
             path.push(str);
             ptr = ptr -> left;
-        }
+        } 
         else{
             TreeNode* top  = s.top();
             str = path.top();
