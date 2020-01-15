@@ -105,7 +105,7 @@ vector<int> postorderTraversal(TreeNode* root) {
 //c. For post-order, set ptr to top -> right ONLY if it should visit right child next.
 //   Or(!!!) after visiting right child, visit current post order node, set prev and pop.
 //   -> Ptr remains prevous value, which should be NULL, so that it will find next stack top.
-//   -> In fact, for post-order, after visiting node(after left&right child), the only direction is to go *UP*
+//   -> In fact, for post-order, after finishing node(after visiting left&right child), the only direction is to go *UP*
 
 //Use two stacks, reverse pre-order means right -> left -> root. By switching left and right, we get left -> right -> root == post=order
 vector<int> postorderTraversal(TreeNode* root) {
