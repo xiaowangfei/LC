@@ -1,4 +1,4 @@
-//Manipulate tree  
+//Divide and Conquer
 void flatten(TreeNode* root) {
     helper(root);
 }
@@ -7,15 +7,16 @@ TreeNode* helper(TreeNode* root){
     if(root -> left == NULL && root -> right == NULL){ 
         return root;
     }
-    TreeNode* RightMost = helper(root -> right);
-    TreeNode* LeftMost = helper(root -> left);
-    if(LeftMost){
-        LeftMost -> right = root -> right;
+    TreeNode* leftLast = helper(root -> left);
+    TreeNode* rightLast = helper(root -> right);
+    if(leftLast){
+        leftLast -> right = root -> right;
         root -> right = root -> left;
         root -> left = NULL; 
     }
-    return RightMost?RightMost : LeftMost;       
+    return rightLast ? rightLast : leftLast;       
 }
+
 
 //Preorder with precursion
 void flatten(TreeNode* root) {
