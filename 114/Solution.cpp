@@ -1,19 +1,4 @@
-void flatten(TreeNode* root) {
-    helper(root);
-}
-TreeNode* helper(TreeNode* root){
-    if(root == NULL) return NULL;
-    if(root -> left == NULL && root -> right == NULL){ 
-        return root;
-    }
-    if(root -> left){
-        helper(root -> left) -> right = root -> right;
-        root -> right = root -> left;
-        root -> left = NULL; 
-    }
-    return helper(root -> right);
-}
-    
+//Manipulate tree  
 void flatten(TreeNode* root) {
     helper(root);
 }
@@ -30,4 +15,44 @@ TreeNode* helper(TreeNode* root){
         root -> left = NULL; 
     }
     return RightMost?RightMost : LeftMost;       
+}
+
+//Preorder with precursion
+void flatten(TreeNode* root) {
+    TreeNode* prev = NULL;
+    helper(root, prev);
+}    
+    
+void helper(TreeNode* root, TreeNode*& prev){
+    if(root == NULL) return;
+    if(prev){
+        prev -> left = NULL;
+        prev -> right = root;
+    }
+    prev = root;
+    TreeNode* left = root -> left;
+    TreeNode* right = root -> right;
+    helper(left, prev);
+    helper(right, prev);       
+}
+
+//Preorder traverse while building tree
+void flatten(TreeNode* root) {
+    if(root == NULL) return;
+    stack<TreeNode*> S;
+    S.push(root);
+    while(!S.empty()){
+        TreeNode* top = S.top();
+        S.pop();
+        if(top -> right){
+            S.push(top -> right);
+        }
+        if(top -> left){
+            S.push(top -> left);
+        }
+        if(!S.empty()){
+            top -> right = S.top();
+            top -> left = NULL;
+        }
+    }
 }
