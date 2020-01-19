@@ -27,9 +27,8 @@ TreeNode* searchBST(TreeNode* root, int val) {
 
 //Don't need a stack!
 TreeNode* searchBST(TreeNode* root, int val) {
-    while(root){
-        if(root -> val == val) return root;
+    while(root && root -> val != val){
         root = root -> val < val ? root -> right : root -> left;
     }
-    return NULL;
+    return root;
 }
