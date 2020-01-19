@@ -28,7 +28,7 @@ TreeNode* insertIntoBST(TreeNode* root, int val) {
 TreeNode* insertIntoBST(TreeNode* root, int val) {
     if(root == NULL) return new TreeNode(val);
     if(val < root -> val){
-        //Inside parent level recursion, insted of inside child level recursion
+        //Inside parent level recursion, instead of inside child level recursion
         root -> left = insertIntoBST(root -> left, val);
     }
     else{
