@@ -68,6 +68,7 @@ void transP(TreeNode*& parent, TreeNode* root, bool left){
 //b.associated logic(left vs right)
 //c.return type saves potentially another reference variable(Used on RHS of assignment)
 //d.Traverse(Search) node while deleting
+//e.Divide and Conquer thinking. Characterize the origin problem(Return the root of subtree whose node has deleted) and try to apply it to subtrees.
 TreeNode* deleteNode(TreeNode* root, int key) {
     if(root == NULL) return NULL;
     if(key < root -> val){
@@ -96,4 +97,30 @@ TreeNode* deleteNode(TreeNode* root, int key) {
     }
     next -> left = root -> left;
     return next;    
+}
+
+//Changing value instead of pointers. Just for reference
+TreeNode* deleteNode(TreeNode* root, int key) {
+    if(root == NULL) return NULL;
+    if(key < root -> val){
+        root -> left = deleteNode(root -> left, key);
+        return root;
+    }
+    if(key > root -> val){
+        root -> right = deleteNode(root -> right, key);
+        return root;
+    } 
+    if(root -> left == NULL){
+        return root -> right;
+    }
+    if(root -> right == NULL){
+        return root -> left;
+    }
+    TreeNode* next = root -> right;
+    while(next -> left != NULL){
+        next = next -> left;
+    }
+    root -> val = next -> val;
+    root -> right = deleteNode(root -> right, root -> val);
+    return root;    
 }
