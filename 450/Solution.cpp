@@ -61,3 +61,39 @@ void transP(TreeNode*& parent, TreeNode* root, bool left){
         parent -> right = root;
     }
 }
+
+//Note how assigning at parent recursion level simplified logic
+//Simplified:
+//a.parent pointer(parent node)
+//b.associated logic(left vs right)
+//c.return type saves potentially another reference variable(Used on RHS of assignment)
+//d.Traverse(Search) node while deleting
+TreeNode* deleteNode(TreeNode* root, int key) {
+    if(root == NULL) return NULL;
+    if(key < root -> val){
+        root -> left = deleteNode(root -> left, key);//Node
+        return root;
+    }
+    if(key > root -> val){
+        root -> right = deleteNode(root -> right, key);//Note
+        return root;
+    } 
+    if(root -> left == NULL){
+        return root -> right;
+    }
+    if(root -> right == NULL){
+        return root -> left;
+    }
+    TreeNode* next = root -> right;
+    TreeNode* p_next = NULL;
+    while(next -> left != NULL){
+        p_next = next;
+        next = next -> left;
+    }
+    if(root -> right != next){
+        p_next -> left = next -> right;
+        next -> right = root -> right;
+    }
+    next -> left = root -> left;
+    return next;    
+}
