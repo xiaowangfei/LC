@@ -18,7 +18,8 @@ TreeNode* helper(TreeNode* root){
 }
 
 
-//Preorder with precursion
+//Preorder with recursion
+//Keep track of lastNode while traversing
 void flatten(TreeNode* root) {
     TreeNode* prev = NULL;
     helper(root, prev);
@@ -32,7 +33,7 @@ void helper(TreeNode* root, TreeNode*& prev){
     }
     prev = root;
     TreeNode* left = root -> left;
-    TreeNode* right = root -> right;
+    TreeNode* right = root -> right;//Need to save right child as helper(left, prev) would update root node
     helper(left, prev);
     helper(right, prev);       
 }
