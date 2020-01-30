@@ -1,4 +1,5 @@
 //Divide and Conquer
+//Node the return type is defined as lastNode of child tree, which is what needed at conquer step.
 void flatten(TreeNode* root) {
     helper(root);
 }
