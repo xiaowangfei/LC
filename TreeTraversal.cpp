@@ -58,6 +58,9 @@ vector<int> inorderTraversal(TreeNode* root) {
             TreeNode* top = S.top();
             ans.push_back(top -> val);
             S.pop();//b.pop after each visit 
+            //BST successor:
+            //If it has right child, find minimum in right child tree(ptr = top -> right)
+            //Otherwise, find first ancestor that is a left child(stack pop)
             //left upward always immediately followed by right downward
             ptr = top -> right; 
         }
