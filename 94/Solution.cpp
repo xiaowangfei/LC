@@ -16,12 +16,45 @@ vector<int> inorderTraversal(TreeNode* root) {
             //a&b guarantees next node to be the frist left upward, which is the in-order traversal order
             TreeNode* top = S.top();
             ans.push_back(top -> val);
-            S.pop();//b.pop after each visit 
+            S.pop();//b.pop stack right after each visit 
             //left upward always immediately followed by right downward
             ptr = top -> right; 
         }
     }
     return ans;   
+}
+
+//Use stack to kepp track the path from root to current node
+vector<int> inorderTraversal(TreeNode* root) {
+    stack<TreeNode*> S;
+    vector<int> ans;
+    //Find minimum
+    while(root){
+        S.push(root);
+        root = root -> left;
+    }
+    
+    while(!S.empty()){
+        TreeNode* top = S.top();
+        ans.push_back(top -> val);
+        //Find successor
+        if(top -> right){
+            root = top -> right;
+            while(root){
+                S.push(root);
+                root = root -> left;
+            }
+        }
+        else{
+            S.pop();
+            while(!S.empty() && top == S.top() -> right){
+                top = S.top();
+                //Only pop stack here, not right after visiting node, as previous method
+                S.pop();
+            }
+        }       
+    }        
+    return ans;        
 }
 
 
