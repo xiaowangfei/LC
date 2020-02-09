@@ -68,6 +68,38 @@ vector<int> inorderTraversal(TreeNode* root) {
     return ans;   
 }
 
+//Use stack to kepp track the path from root to current node
+vector<int> inorderTraversal(TreeNode* root) {
+    stack<TreeNode*> S;
+    vector<int> ans;
+    //Find minimum
+    while(root){
+        S.push(root);
+        root = root -> left;
+    }
+    while(!S.empty()){
+        TreeNode* top = S.top();
+        ans.push_back(top -> val);
+        //Find successor
+        if(top -> right){
+            root = top -> right;
+            while(root){
+                S.push(root);
+                root = root -> left;
+            }
+        }
+        else{
+            S.pop();
+            while(!S.empty() && top == S.top() -> right){
+                top = S.top();
+                //Only pop stack here, not right after visiting node, as previous method
+                S.pop();
+            }
+        }       
+    }        
+    return ans;        
+}
+
 //Post-order traversal
 vector<int> postorderTraversal(TreeNode* root) {
     vector<int> ans;
