@@ -39,7 +39,7 @@ vector<int> preorderTraversal(TreeNode* root) {
     return ans;
 }
 
-//Use stack to kepp track the path from root to current node
+//Use stack to keep track of full path from root to current node
 vector<int> preorderTraversal(TreeNode* root) {
     stack<TreeNode*> S;
     vector<int> ans;
