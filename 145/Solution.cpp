@@ -28,6 +28,39 @@ vector<int> postorderTraversal(TreeNode* root) {
     return ans;
 }
 
+//Use stack to keep track of the full path from root to current node
+vector<int> postorderTraversal(TreeNode* root) {
+    stack<TreeNode*> S;
+    vector<int> ans;
+    while(root){
+        S.push(root);
+        root = root -> left;
+    }
+    while(!S.empty()){
+        TreeNode* top = S.top();
+        if(top -> right){
+            top = top -> right;
+            while(top){
+                S.push(top);
+                top = top -> left;
+            }
+        }
+        else{
+            //Add to ans when right child is NULL, keep poping & adding ans
+            ans.push_back(top -> val);
+            S.pop();
+            while(!S.empty() && top == S.top() -> right){
+                top = S.top();
+                ans.push_back(top -> val);
+                S.pop();
+            }
+            
+        }
+    }
+    return ans;    
+}
+
+
 //Use two stacks, reverse pre-order means right -> left -> root. By switching left and right, we get left -> right -> root == post=order
 vector<int> postorderTraversal(TreeNode* root) {
     vector<int> ans;
