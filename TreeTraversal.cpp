@@ -38,7 +38,7 @@ vector<int> preorderTraversal(TreeNode* root) {
     return ans;
 }
 
-//Use stack to kepp track the path from root to current node
+//Use stack to keep track of the full path from root to current node
 vector<int> preorderTraversal(TreeNode* root) {
     stack<TreeNode*> S;
     vector<int> ans;
@@ -172,6 +172,38 @@ vector<int> postorderTraversal(TreeNode* root) {
 //   Or(!!!) after visiting right child, visit current post order node, set prev and pop.
 //   -> Ptr remains prevous value, which should be NULL, so that it will find next stack top.
 //   -> In fact, for post-order, after finishing node(after visiting left&right child), the only direction is to go *UP*
+
+//Use stack to keep track of the full path from root to current node
+vector<int> postorderTraversal(TreeNode* root) {
+    stack<TreeNode*> S;
+    vector<int> ans;
+    while(root){
+        S.push(root);
+        root = root -> left;
+    }
+    while(!S.empty()){
+        TreeNode* top = S.top();
+        if(top -> right){
+            top = top -> right;
+            while(top){
+                S.push(top);
+                top = top -> left;
+            }
+        }
+        else{
+            //Add to ans when right child is NULL, keep poping & adding ans
+            ans.push_back(top -> val);
+            S.pop();
+            while(!S.empty() && top == S.top() -> right){
+                top = S.top();
+                ans.push_back(top -> val);
+                S.pop();
+            }
+            
+        }
+    }
+    return ans;    
+}
 
 //Use two stacks, reverse pre-order means right -> left -> root. By switching left and right, we get left -> right -> root == post=order
 vector<int> postorderTraversal(TreeNode* root) {
