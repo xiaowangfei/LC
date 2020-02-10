@@ -31,10 +31,43 @@ vector<int> preorderTraversal(TreeNode* root) {
         }
         else{
             TreeNode* top = S.top();
+            //Pop immediately after visit top
             S.pop();
             ptr = top -> right;
         }
     }
     return ans;
 }
+
+//Use stack to kepp track the path from root to current node
+vector<int> preorderTraversal(TreeNode* root) {
+    stack<TreeNode*> S;
+    vector<int> ans;
+    while(root){
+        ans.push_back(root -> val);
+        S.push(root);
+        root = root -> left;
+    }
+    while(!S.empty()){
+        TreeNode* top = S.top();
+        //Successor two cases: top has right child and not
+        if(top -> right){
+            top = top -> right;
+            while(top){
+                ans.push_back(top -> val);
+                S.push(top);
+                top = top -> left;
+            }
+        }
+        else{
+            S.pop();
+            while(!S.empty() && top == S.top() -> right){
+                top = S.top();
+                S.pop();
+            }
+        }
+    }
+    return ans;               
+}
+
 
